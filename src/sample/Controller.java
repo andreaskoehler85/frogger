@@ -16,14 +16,16 @@ public class Controller {
     private Pane game;
 
     private Avatar frog;
-    private ImageView car1;
+    private ImageView car1,car2;
     private ImageView tree;
 
     private Rectangle dangerzone;
 
     private static PathTransition t;
     private static PathTransition t2;
+    private static PathTransition t3;
     private Line line = new Line(850, 690, -100, 690);
+    private Line linecar2 = new Line(-100, 500,850 , 500);
     private Line line2 = new Line(850, 350, -100, 350);
     //Color c = Color.BLUE;
 
@@ -34,7 +36,8 @@ public class Controller {
     private void initialize(){
         car1 = new ImageView("image/car_red_40.png");
         tree = new ImageView("image/car_green_40_r.png");
-        frog = new Avatar("image/frog_50_38_lila.png", 0.0, 720.0);
+        car2 = new ImageView("image/car_green_40_r.png");
+        frog = new Avatar("image/frog_50_38_lila.png", 360, 720.0);
         dangerzone = new Rectangle(0,115,800,260);
 //        dangerzone.setX(0);
 //        dangerzone.setY(115);
@@ -44,6 +47,7 @@ public class Controller {
         game.getChildren().add(dangerzone);
         game.getChildren().add(frog);
         game.getChildren().add(car1);
+        game.getChildren().add(car2);
         game.getChildren().add(tree);
         frog.setFocusTraversable(true);
 
@@ -60,6 +64,12 @@ public class Controller {
         t2.setPath(line2);
         t2.setCycleCount(PathTransition.INDEFINITE);
         t2.play();
+        t3 = new PathTransition();
+        t3.setDuration(Duration.millis(5000));
+        t3.setNode(car2);
+        t3.setPath(linecar2);
+        t3.setCycleCount(PathTransition.INDEFINITE);
+        t3.play();
 
         // Eventhandler
         frog.addEventHandler(KeyEvent.KEY_PRESSED,

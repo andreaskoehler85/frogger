@@ -16,7 +16,7 @@ public class Controller {
     private Pane game;
 
     private Avatar frog;
-    private ImageView car1,car2;
+    private ImageView car1, car2;
     private ImageView tree;
 
     private Rectangle dangerzone;
@@ -25,20 +25,20 @@ public class Controller {
     private static PathTransition t2;
     private static PathTransition t3;
     private Line line = new Line(850, 690, -100, 690);
-    private Line linecar2 = new Line(-100, 500,850 , 500);
+    private Line linecar2 = new Line(-100, 500, 850, 500);
     private Line line2 = new Line(850, 350, -100, 350);
     //Color c = Color.BLUE;
 
-    Color c = Color.web("0x0000FF",0.0);
+    Color c = Color.web("0x0000FF", 0.0);
 
 
     @FXML
-    private void initialize(){
+    private void initialize() {
         car1 = new ImageView("image/car_red_40.png");
         tree = new ImageView("image/car_green_40_r.png");
         car2 = new ImageView("image/car_green_40_r.png");
         frog = new Avatar("image/frog_50_38_lila.png", 360, 720.0);
-        dangerzone = new Rectangle(0,115,800,260);
+        dangerzone = new Rectangle(0, 115, 800, 260);
 //        dangerzone.setX(0);
 //        dangerzone.setY(115);
 //        dangerzone.setWidth(800);
@@ -74,63 +74,73 @@ public class Controller {
         // Eventhandler
         frog.addEventHandler(KeyEvent.KEY_PRESSED,
                 keyEvent -> {
-                    switch (keyEvent.getCode()){
+                    switch (keyEvent.getCode()) {
                         case UP:
                             frog.moveUp();
-                            if(frog.intersects(car1.getBoundsInParent()) ||
-                                    frog.intersects(dangerzone.getBoundsInParent()) ) {
+                            if (frog.intersects(car1.getBoundsInParent()) ||
+                                    frog.intersects(dangerzone.getBoundsInParent())) {
                                 collision();
                             }
                             break;
                         case DOWN:
                             frog.moveDown();
-                            if(frog.intersects(car1.getBoundsInParent()) ||
+                            if (frog.intersects(car1.getBoundsInParent()) ||
                                     frog.intersects(dangerzone.getBoundsInParent())) {
                                 collision();
                             }
                             break;
                         case LEFT:
                             frog.moveLeft();
-                            if(frog.intersects(car1.getBoundsInParent()) ) {
+                            if (frog.intersects(car1.getBoundsInParent())) {
                                 collision();
                             }
                             break;
                         case RIGHT:
                             frog.moveRight();
-                            if(frog.intersects(car1.getBoundsInParent()) ) {
+                            if (frog.intersects(car1.getBoundsInParent())) {
                                 collision();
                             }
                             break;
                     }
 
-                } );
+                });
 
         // ChangeListener
         car1.translateXProperty().addListener(
                 (observableValue, oldValue, newValue) -> {
-                    collision2(frog,car1);
+                    collision2(frog, car1);
+                }
+
+        );
+        car2.translateXProperty().addListener(
+                (observableValue, oldValue, newValue) -> {
+                    collision3(frog, car2);
                 }
 
         );
     }
 
-    public static void ausgabe(){
+    public static void ausgabe() {
         System.out.println("Funktioniert");
     }
 
-    public static boolean collision(){
+    public static boolean collision() {
         System.out.println("getroffen");
         t.pause();
         return false;
     }
 
-    public static void collision2(Avatar frog, ImageView car1){
-        if(frog.intersects(car1.getBoundsInParent()) ) {
+    public static void collision2(Avatar frog, ImageView car1) {
+        if (frog.intersects(car1.getBoundsInParent())) {
             t.pause();
         }
 
 
-
     }
 
+    public static void collision3(Avatar frog, ImageView car2) {
+        if (frog.intersects(car2.getBoundsInParent())) {
+            t3.pause();
+        }
+    }
 }
